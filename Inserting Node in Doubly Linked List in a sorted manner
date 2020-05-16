@@ -1,0 +1,77 @@
+// initially i'm creating the sorted doubly link and then inserting one data at a time as per ascending order..
+#include<iostream>
+using namespace std;
+struct Node
+{
+    int data;
+    Node * next;
+    Node * prev;
+};
+struct Node * head;
+void insert(int data)
+{
+    Node * temp = new Node();
+    temp->data = data;
+    temp->next = NULL;
+    temp->prev = NULL;
+    Node* temp4 = head;
+    if (head == NULL)
+    {
+        head = temp;
+    }
+    else if (data < head->data)
+    {
+        Node * temp1 = head;
+        temp->next = temp1;
+        temp1->prev = temp;
+        head = temp;
+    }
+    else
+    {
+        Node * temp4 = head;
+        while (data > temp4->data && temp4->next!=NULL)
+        {
+            temp4 = temp4->next;
+        }
+        if (temp4->data > data)
+        {
+            temp4->prev->next = temp;
+            temp->next = temp4;
+            temp->prev = temp4->prev;
+            temp4->prev = temp;
+        }
+        else
+        {
+            temp4->next = temp;
+            temp->prev = temp4;
+        }
+    }
+};
+void display()
+{
+  Node * temp = head;
+  while (temp!=NULL)
+  {
+      cout<<temp->data<<" ";
+      temp = temp->next;
+  }
+  cout<<endl;
+};
+int main()
+{
+    head = NULL;
+    insert(4);
+    display();
+    insert(2);
+    display();
+    insert(1);
+    display();
+    insert(5);
+    display();
+    insert(3);
+    display();
+    insert(100);
+    insert(99);
+    display();
+    return 0;
+}
